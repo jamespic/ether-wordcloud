@@ -1,0 +1,32 @@
+{
+  "name": "ether-wordcloud",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/jamespic/ether-wordcloud.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jamespic/ether-wordcloud/issues"
+  },
+  "homepage": "https://github.com/jamespic/ether-wordcloud#readme",
+  "devDependencies": {
+    "parcel-bundler": "^1.6.2"
+  },
+  "dependencies": {
+    "@ledgerhq/hw-transport-node-hid": "^4.7.0",
+    "@ledgerhq/web3-subprovider": "^4.6.0",
+    "truffle-contract": "^3.0.4",
+    "web3-provider-engine": "^13.6.6",
+    "wordcloud": "^1.1.0"
+  }
+}
