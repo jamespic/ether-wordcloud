@@ -1,6 +1,6 @@
 import contract from 'truffle-contract'
 import cloud from 'wordcloud'
-// import Web3 from 'web3'
+import Web3 from 'web3'
 
 document.addEventListener('DOMContentLoaded', (event) => {
   const WordCloud = contract(require('./build/contracts/WordCloud.json'))
