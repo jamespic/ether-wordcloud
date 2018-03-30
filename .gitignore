@@ -58,6 +58,5 @@ typings/
 .env
 
 .cache/
-build/
 dist/
 package-lock.json
