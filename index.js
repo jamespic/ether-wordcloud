@@ -1,12 +1,29 @@
 import contract from 'truffle-contract'
 import cloud from 'wordcloud'
 import Web3 from 'web3'
+import ProviderEngine from 'web3-provider-engine'
+import RpcSubprovider from "web3-provider-engine/subproviders/rpc"
+import FilterSubprovider from "web3-provider-engine/subproviders/filters"
+import DefaultFixture from 'web3-provider-engine/subproviders/default-fixture'
+import CacheSubprovider from 'web3-provider-engine/subproviders/cache'
+import InflightCacheSubprovider from 'web3-provider-engine/subproviders/inflight-cache'
+
+function passiveProvider(rpcUrl = 'https://mainnet.infura.io/yO5rkfBoLWfHKOwQOLc0') {
+  let engine = new ProviderEngine()
+  engine.addProvider(new DefaultFixture())
+  engine.addProvider(new CacheSubprovider())
+  engine.addProvider(new FilterSubprovider())
+  engine.addProvider(new InflightCacheSubprovider())
+  engine.addProvider(new RpcSubprovider({rpcUrl}))
+  engine.start()
+  return engine
+}
 
 document.addEventListener('DOMContentLoaded', (event) => {
   const WordCloud = contract(require('./build/contracts/WordCloud.json'))
-  const provider = window.web3.currentProvider
+  const provider = (window.web3 != null) ? window.web3.currentProvider : passiveProvider()
   const web3 = new Web3(provider)
-  WordCloud.setProvider(window.web3.currentProvider)
+  WordCloud.setProvider(provider)
 
   let words = {}
   let updated = false
