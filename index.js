@@ -33,7 +33,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   }, 1000)
 
   WordCloud.deployed().then(wordCloud => {
-    let eventFilter = wordCloud.WordSizeIncreased([], {fromBlock: 0, toBlock: 'pending'})
+    let eventFilter = wordCloud.WordSizeIncreased([], {fromBlock: 0, toBlock: 'latest'})
     function handleEvent(e) {
       let word = e.args.word
       let newSize = e.args.newSize.toNumber()
