@@ -1,10 +1,12 @@
 import contract from 'truffle-contract'
 import cloud from 'wordcloud'
+import Web3 from 'web3'
 
 document.addEventListener('DOMContentLoaded', (event) => {
   const WordCloud = contract(require('./build/contracts/WordCloud.json'))
   const provider = window.web3.currentProvider
-  WordCloud.setProvider(provider)
+  const web3 = new Web3(provider)
+  WordCloud.setProvider(window.web3.currentProvider)
 
   let words = {}
   let updated = false
@@ -47,9 +49,14 @@ document.addEventListener('DOMContentLoaded', (event) => {
     })
 
     document.getElementById('submitButton').addEventListener('click', (event) => {
-      let message = document.getElementById('newWord').value
-      let value = Math.floor(parseFloat(document.getElementById('value').value) * 10 ** 18)
-      wordCloud.increaseWordSize(message, {value: value, from: ((window.web3 || {}).eth || {}).defaultAccount})
+      web3.eth.getAccounts((err, accs) => {
+        if (err) console.log(err)
+        else {
+          let message = document.getElementById('newWord').value
+          let value = Math.floor(parseFloat(document.getElementById('value').value) * 10 ** 18)
+          wordCloud.increaseWordSize(message, {value: value, from: accs[0]})
+        }
+      })
     })
   })
 
